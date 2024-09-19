@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>day76_2</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>Hello</servlet-name><!-- 2. Hello라고 하겠다 -->
+  	<servlet-class>com.servlet.app.MyServlet</servlet-class> <!-- 1. 해당경로의 서블릿의 이름을 -->
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Hello</servlet-name><!-- 4. /hello를 2.번의 hello와 매핑시키겠다 -->
+  	<url-pattern>/Hello</url-pattern><!-- 3. action의 url 경로는 hello이지만 슬래쉬를 붙여서 처리 -->
+  </servlet-mapping>
+  
+</web-app>

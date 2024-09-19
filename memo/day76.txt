@@ -1,0 +1,99 @@
+day76
+웹개발5 5일차
+복습 -> 서블릿 -> jsp
+
+0. 복습
+1) JSP(Java Server Page)
+   동적인 웹 페이지를 개발하기 위한 웹 프로그래밍 기술이다
+   java언어를 사용하여 서버(server) 측에서 웹 페이지들(pages)을 생성해 웹 브라우저로 전송해준다
+   
+장점
+   짧은 코드로 동적인 웹 페이지를 생성할 수 있다
+   기본적인 예외는 자동으로 처리된다
+   많은 확장 라이브러리를 사용할 수 있다
+   쓰레드 기반으로 실행되어 시스템 자원을 절약해준다
+
+활용사례
+   jsp는 기업용 자바 기술의 집합체인 Java EE(Java Platform, Enterprise Edition)의 핵심요소
+   Java EE 대한민국 정부 표준 프레임워크의 근간으로
+   정부나 공기업 주도의 사업 등 대규모 기업용 시스템 구축에 주로 사용된다
+   
+2) 기본 용어
+서버(server)
+   웹에서 서비스를 제공하는 컴퓨터 시스템
+
+웹서버(web server)
+   사용자로부터 HTTP를 통해 요청을 받거나, 웹 컨테이너가 전달해준 결과물을 정적인 페이지로 생성하여
+   사용자에게 응답해주는 소프트웨어
+
+웹 컨테이너(web container)
+   웹서버가 전송해준 요청을 기초로 동적인 페이지를 생성하여 웹서버로 돌려줌
+   동적인 페이지인 이유는 사용자마다 다른 결과로 응답할 수 있기 때문이다
+
+WAS(web application server)
+   웹 어플리케이션이 실행될 수 있는 환경을 제공하는 소프트웨어
+   컴퓨터 운영체제(윈도우, 리눅스 등)와 비슷한 역할을 하는 소프트웨어
+   WAS는 웹서버와 웹컨테이너를 포함한 개념이며, 톰캣이 대표적임(웹 로직, 웹 스피어 등 존재함)
+
+프로토콜(protocol)
+   네트워크를 통해 컴퓨터들이 정보를 주고받는 절차 또는 통신규약을 의미함
+   
+포트(port)
+   컴퓨터 사이에서 데이터를 주고 받을 수 있는 통로를 의미함
+   인터넷에서는 ip주소를 통해 서버 컴퓨터의 위치를 파악하고 그 컴퓨터가 제공하는 특정 서비스는
+   포트번호를 통해 알 수 있다
+   인터넷상의 모든 서비스는 IP주소와 함께 포트번호까지 지정해야 제대로 요청을 전달할 수 있다
+   HTTPS는 443번, HTTP는 80번 포트번호를 사용한다
+
+
+1. 서블릿(Servlet)
+	자바에서 제공하는 클래스, 기술이며 동적인웹페이지를 만들기 위해 사용한다
+	"JAVA 코드 안에 HTML을 작성하는 형태"
+	사용자의 요청 방식에 따라 doGet(),  doPost() 등의 메소드가 실행된다
+	HttpServlet 클래스를 상속받아서 사용한다
+
+1) 서블릿의 동작방식
+	사용자가 웹 브라우저에서 특정 URL로 요청을 보내면, 웹 서버는 이 요청을 서블릿 컨테이너(servlet container)로 전달한다
+	서블릿 컨테이너는 해당 URL과 매핑된 서블릿을 찾아 요청을 처리하고 서블릿은 HttpServlet 클래스를 상속받아 구현되며,
+	Get 요청 doGet(), Post요청은 doPost()메소드가 호출된다
+
+2) 서블릿의 특징
+	Java 코드안에 HTML코드를 작성할 수 있다
+	유지보수나 가독성의 문제로 JSP 와 같은 기술과 함께 사용하여 HTML코드는 jsp에서 처리하고
+	서블릿은 비즈니스 로직을 처리하는 구조로 나누는 것이 일반적이다
+
++) servlet의 doGet()메소드, doPost()메소드
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+- HttpServlet 클래스에 존재하는 메소드로 오버라이딩을 하는 것
+- 각 메소드는 사용자의 요청방식에 따라 알아서 실행된다
+- get방식으로 요청이 오면 doGet()메소드 호출, post방식으로 요청이오면 doPost() 메소드 호출된다
+- 각 메소드는 요청을 받기 위해서 매개변수로 request를 받고, 응답을 보내기 위해서 response도 같이 만들어져 있다
+
+response.getWriter().append("Served at: ").append(request.getContextPath());
+	getWriter() 메소드를 사용하며 화면에 출력을 위해 사용하는 출력 스트림을 반환한다
+	이 객체를 활용하면 사용자의 호면에 글시를 뿌려줄 수 있고 append() 메소드는 문자열을 연결해주는 메소드이다
+
+request.getContextPath()
+	request 객체로부터 ContextPath 라는 것을 얻어온다
+	컨텍스트 패스는 현재 우리의 사이트, 우리의 웹 어플리케이션의 루트 경로를 의미한다
+	www.naver.com/webtoon/
+
+★ 중요!!!
+	서블릿은 자바 파일이지만 우리가 실행시키는 것이 아니라 요청을 보내서 실행시키는 것이다
+	요청이 들어오면 서블릿 컨테이너가 해당 경로와 매핑된 서블릿 파일을 실행시킨다
+
+2. JSP(Java Server Page)
+	JAVA를 기반으로 만든 웹 프로그래밍 기술이다
+	서블릿의 불편한 점을 개선하고자 HTML코드에 JAVA코드를 작성할 수 있게 만들었으며,
+	동적인 페이지를 만드는데 특화되어있다
+	JSP도 서블릿 클래스처럼 웹컨테이너(서블릿 컨테이너)가 관리하며, 웹 컨테이너가 JSP를 실행시킬 때
+	서블릿으로 변환하여 실행한다
+	즉, JSP는 내부적으로 서블릿으로 변환되어 실행된다
