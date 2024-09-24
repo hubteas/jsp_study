@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/input")
 public class InputServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -24,34 +24,33 @@ public class InputServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-   /**
-    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-    */
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      response.setContentType("text/html; charset=UTF-8");
-      
-      PrintWriter out = response.getWriter();
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Input Form</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<form method='get' action='output'>");
-      out.println("Name : <input type='text' name='name'><br>");
-      out.println("Age : <input type='text' name='age'><br>");
-      out.println("<input type='submit' value='Submit'><br>");
-      out.println("</form>");
-      out.println("</body>");
-      out.println("</html>");
-      
-   }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>Input Form</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<form method='get' action='output'>");
+		out.println("Name : <input type='text' name='name'><br>");
+		out.println("Age : <input type='text' name='age'><br>");
+		out.println("<input type='submit' value='Submit'><br>");
+		out.println("</form>");
+		out.println("</body>");
+		out.println("</html>");
+		
+	}
 
-   /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-    */
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      doGet(request, response);
-   }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }
-

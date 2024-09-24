@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>day76_2</display-name>
+  <display-name>day77</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -18,6 +18,4 @@
   	<servlet-name>Hello</servlet-name><!-- 4. /hello를 2.번의 hello와 매핑시키겠다 -->
   	<url-pattern>/Hello</url-pattern><!-- 3. action의 url 경로는 hello이지만 슬래쉬를 붙여서 처리 -->
   </servlet-mapping>
-  
-  
 </web-app>
