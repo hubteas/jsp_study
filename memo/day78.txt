@@ -1,0 +1,132 @@
+day78
+복습 -> 헤더/푸터 -> JSP 태그 -> EL표현식 -> 플젝 기획
+
+0. 복습
+1) GET/POST
+   HTTP 프로토콜에서 데이터를 클라이언트에서 서버로 전송할 때 사용
+
+GET 방식
+   주소(URL)에 데이터를 추가하여 전달하는 방식
+   쿼리스트링을 사용한다
+
+POST 방식
+   데이터를 주소가 아닌 요청에 저장하여 전송한다
+   
+
+2) forward / redirect
+   서버에서 클라이언트의 화면의 페이지를 전환시키는 방식
+
+forward
+   request.getRequestDispatcher("파일경로").forward(request, response);
+
+   request와 response를 가지고 매개변수로 넘겨준 파일로 이동한다
+   클라이언트가 저장한 데이터를 계속 저장하고 있다
+   해당 파일의 결과를 response에 담아 클라이언트에게 보낸다
+   브라우저 URL이 변경되지 않는다
+   WEBAPP이 루트 경로이다
+
+redirect
+   response.sendRedirect("URL경로");
+
+   사용자 브라우저를 특정 URL로 바로 이동시킨다
+   기존의 request, response를 버리기 때문에 클라이언트가 이전에 입력한 데이터를 저장하지 않는다
+   브라우저의 URL이 변경된다
+   URL 경로는 우리가 설정한 루트 경로를 기준으로 작성한다
+
+특징      forward            redirect
+요청url변경   변경x            변경o
+브라우저 히스토리   남지않음            남음
+클라이언트와 서버관계 직접처리            클라이언트가 새로운 요청을 함
+데이터 전송방식   서버측에서 요청속성을 통해 전송   URL 쿼리파라미터 또는 세션을 통해 전송
+사용용도      동일서버내에서 로직처리가 필요한경우   데이터 변경 후 중복 요청 방지를 위해 사용
+
+<실습>
+1. day78_task 프로젝트 만든다
+	url 루트경로는 /task이다
+
+2. index.jsp만든다
+	접속이라는 버튼이 있고 버튼을 누르면 get방식을 사용하여 MyServlet1로 요청이 간다
+
+3. login.jsp를 만든다
+	사용자에게 아이디와 비밀번호를 입력받아 로그인버튼을 누르면 post방식을 사용하여 MyServlet1로 요청이 간다
+
+4. com.servlet.app패키지에 MyServlet1이라는 서블릿을 만든다
+	url경로는 MyServlet1이다
+	get방식으로 요청을 받으면 page1.jsp로 이동한다
+	post방식으로 요청을 받으면 redirect방식으로 index.jsp로 이동한다
+
+*어노테이션 사용하지 않고 web.xml을 반드시 사용한다
+
+1. JSP 태그
+	JSP에서 사용가능한 태그이며 다양한 기능을 지원한다
+	JSP 태그를 이용하여 HTML 내부에 자바코드 사용이 가능하지만 다른 언어가 섞이게 되면 좋지 않기 때문에
+	JSTL, EL 태그가 등장했다
+
+1) 지시자 태그 <%@ 지시자 ...%>
+	지시자 종류
+	page: 페이지의 속성을 지시하는 태그
+	include : 다른 파일의 내용을 포함시키는 태그
+	taglib : 태그 라이브러리를 지정하는 태그
+		<%@ taglib url="http://java.sun.com/jsp/jst1/core" prefix="c" %>
+
+2) 선언태그 <%! ... %>
+	변수, 메소드를 선언할 때 사용한다
+	선언 태그 안에 만든 변수, 메소드는 해당 페이지 안에서 언제든 사용가능하다(전역변수와 전역메소드)
+
+3) 표현식 태그 <%=...%>
+	변수, 메소드의 결과값을 출력할 때 사용한다
+
+4) 스트립틀릿 <% %>
+	자바코드를 삽입하기 위해 사용한다
+	자바코드를 자유롭게 사용할 수 있다
+
+5) 주석 <%-- ... --%>
+	jsp 컴파일 자체를 막아버린다
+	일반 html코드는 html 주석을 사용해도 되지만 jsp와 관련된 코드를 주석처리할 때는 jsp주석을 사용한다
+
+6) 액션태그 <jsp:action > </jsp:action>
+	JSTL, EL 의 등장으로 잘 사용되지 않으며
+	액션 태그를 너무 많이 사용하면 코드가 복잡하고 유지 보수가 어렵다
+
+
+
+2. JSTL 과 EL
+	둘 다 JSP 에서 자바코드를 대신하여 사용하며 외부 라이브러리이다
+	서블릿에서 JSP로 기술이 발전하였지만 여전히 HMTL과 JAVA 코드가 같이 사용된다는 단점이 있다
+	JSTL 태그와 EL 표현식을 사용하면 자바코드를 대체하게 되어 태그로만 구성된 페이지를 만들 수 있다
+
+1) 다운로드
+
+	구글 > JSTL검색 > 최상단 톰캣 사이트 접속 > standard 1.1사용
+	압축 해제하면 lib 폴더에 jar 2개 존재함
+	둘다 프로젝트의 lib 폴더에 넣고 빌드패스 추가한다
+
+2) EL(expression language)
+	JSP에서 사용하는 표현언어
+	JSP에서 JAVA로 가져온 값을 간편하게 표현하는데 사용한다
+	${}를 사용한다
+	ex) <%= name %> -> ${name}
+
+- page 스코프
+	jsp 페이지를 의미한다
+	현재 페이지 내에서만 유효하다는 의미이다
+	JSP 페이지에서 아래처럼 작성하면 page스코프 변수를 만들 수 있다
+	pageContext.setAttribute("name", "홍길동");
+
+	page스코프를 가진 변수를 사용할 때 ${name} 형식으로 사용한다
+
+- request 스코프
+	request에 저장된 데이터를 의미한다
+	request 스코프 변수는 ${requestScope.name}형식으로 사용한다
+
+- session 스코프
+	session에 저장된 데이터를 의미한다
+	${sessionScope.name} 형식으로 사용한다
+
+- application 스코프
+	어플리케이션 전체에서 사용 가능한 데이터를 의미한다 ( 잘 사용되지는 않는다)
+	${applicationScope.name}
+
+=> 값을 찾을 때 스코프를 명시하지 않으면 
+	page -> request -> session -> application 순서로 찾게 된다
+
