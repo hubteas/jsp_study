@@ -1,0 +1,63 @@
+day79
+웹개발5 8일차
+노션 로그인 준비, 메모장 준비, 이클립스 실행
+
+JSTL, EL -> MyBatis(1) -> 노션 팀플 정리 -> 팀플 기획(주제선정)
+
+1. JSTL, EL
+   JSTL 태그와 EL 표현식을 사용하면 자바 코드를 대체하게 되어 태그로만 구성된 페이지를 만들 수 있다
+
+1) EL
+   JSP에서 사용하는 표현 언어
+   JAVA로 가져온 값을 간편하게 표현하는데 사용한다
+   ${}를 사용한다
+
+- page 스코프
+   jsp 페이지를 의미한다
+   현재 페이지 내에서만 유효함
+
+- request 스코프
+   reqtuest에 저장된 데이터를 의미한다
+
+- session 스코프
+   session에 저장된 데이터를 의미한다
+
+- application 스코프
+   어플리케이션 전체에서 사용가능한 데이터를 의미한다
+
+2) EL 연산자
+   %, mod
+   &&, and
+   ||, or
+   >, gt
+   <, lt
+   >=, ge
+   <=, le
+   ==, eq
+   !=, ne
+   !, not
+   empty 
+
+
+2. JSTL(JSP Standard Tagd Library)
+   jsp에서 사용가능한 태그 라이브러리
+   jsp에서 java를 사용하지 않고도 반복문, 조건문 등을 처리할 수 있는 태그이다
+
+1) jstl의 사용 방법
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   JSTL을 사용하기 위해서 JSP 페이지 상단에 코드를 작성해야한다
+   <c:태그이름></c:태그이름>
+
+2) 태그의 종류
+   <c:set>      변수 선언
+   <c:out>      값 출력
+   <c:if>      단순 if문
+   <c:choose>   여러 조건문의 시작(if ~ else if ~ else)
+   <c:when>   조건문의 조건식 작성, 조건문의 else if를 의미한다
+   <c:otherwise>   조건문의 else를 의미한다
+   <c:forEach>   반복문
+
+   자바            jstl
+   for(초기식; 조건식; 증감식){}   <c:forEach var="" begin="" end=""></c:forEach>
+   for(자료형 변수명:자료구조){}      <c:forEach var="" items="${}"></c:forEach>
+
