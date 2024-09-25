@@ -9,7 +9,7 @@
 <body>
 	<% pageContext.setAttribute("name", "짱구"); %>
 	<h1> 이름 : ${name}</h1>
-	<h1> 서블릿에서 받아온 이름 : ${requestScope.name }</h1>
-	<h1>과목 : ${subject}</h1>
+	<h1>서블릿에서 받아온 이름 : ${requestScope.name != null ? requestScope.name : "이름없음"}</h1>
+	<h1> 과목 : ${subject}</h1>
 </body>
 </html>

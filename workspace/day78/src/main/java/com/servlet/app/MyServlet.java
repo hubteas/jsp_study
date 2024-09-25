@@ -28,8 +28,8 @@ public class MyServlet extends HttpServlet {
 		
 		String userName = request.getParameter("userName");
 		String userSubject = request.getParameter("userSubject");
-//		request.setAttribute("name", (requestScope.name != "" ? requestScope.name : "이름없음"));
-		request.setAttribute("subject", "userSubject");
+		request.setAttribute("name", userName != null ? userName : "홍길동");
+		request.setAttribute("subject", userSubject);
 		request.getRequestDispatcher("jstlTest.jsp").forward(request, response);
 	}
 
